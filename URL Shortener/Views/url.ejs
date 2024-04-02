@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <title>URL Shortener</title>
+</head>
+
+<body style="background-color: rgb(186, 205, 238);">
+    <div class="container">
+        <center><h1 class="mt-2">URL Shortener</h1></center>
+        <form action="/" method="post">
+            <div class="row mt-4">
+                <div class="col-md-9 col-xs-12 col-lg-10">
+                    <input required type="url" name="OriginalURL" id="OriginalURL" placeholder="URL"
+                        class="col form-control mr-2" autocomplete="off">
+                </div>
+                <div class="col-md-3 col-xs-12 col-lg-2">
+                    <button type="submit" class="btn btn-dark btn-md">Generate</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped table-bordered table-dark mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Original URL</th>
+                    <th scope="col">Short URL</th>
+                    <th scope="col">Total Clicks</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% URLModel.forEach(url=> {%>
+                    <tr>
+                        <td><a href="<%=url.originalURL%>">
+                                <%=url.originalURL%>
+                            </a></td>
+                        <td><a href="<%=url.shortURL%>">
+                                <%=url.shortURL%>
+                            </a></td>
+                        <td>
+                            <%=url.totalClicks%>
+                        </td>
+                        <td>
+                            <form action="/<%=url.shortURL%>" method="post">
+                                <button class="btn btn-sm btn-danger delete-btn"
+                                    data-urlID="<%=url.shortURL%>">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <%})%>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
